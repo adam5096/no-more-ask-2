@@ -16,8 +16,8 @@ import AppFooter from '~/components/layouts/AppFooter.vue'
 
 <style scoped>
 .my-layouts-container {
+    @apply grid grid-rows-[auto_1fr_auto];
     @apply min-h-screen;
-    @apply grid grid-rows-[auto_1fr_auto] ;
-
+    @apply text-6xl font-extrabold;
 }
 </style>
