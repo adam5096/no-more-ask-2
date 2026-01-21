@@ -4,8 +4,8 @@
 
 透過整合官方文件與 Alexander Lichter 的技術解析，核心發現如下：
 
-1.  **Nuxt 的資料獲取機制是為了「解決水合（Hydration）問題」**：
-    Nuxt 是一個通用（Universal/Isomorphic）框架。如果只用原生的 `fetch` 或 `$fetch` 在組件 setup 階段獲取資料，會導致伺服器端渲染（SSR）和客戶端水合時重複發送請求。`useFetch` 和 `useAsyncData` 的核心作用是將伺服器端獲取的資料透過 `payload` 傳遞給客戶端，避免重複請求。
+1.  **Nuxt 的資料獲取機制是為了「解決補水（Hydration）問題」**：
+    Nuxt 是一個通用（Universal/Isomorphic）框架。如果只用原生的 `fetch` 或 `$fetch` 在組件 setup 階段獲取資料，會導致伺服器端渲染（SSR）和客戶端補水時重複發送請求。`useFetch` 和 `useAsyncData` 的核心作用是將伺服器端獲取的資料透過 `payload` 傳遞給客戶端，避免重複請求。
 
 2.  **三者的階層關係明確**：
     *   **`$fetch`**：最底層的 fetch 函式（基於 ofetch），適合單純的網路請求，不具備狀態管理功能。
