@@ -1,10 +1,6 @@
-沒問題！這是一份將**抽象指南**與**具體 TODO 實作**完美融合的文檔。你可以直接將這份內容存成 `HATEOAS-Best-Practices-with-Todo-Example.md`。
-
-這份檔案設計的目的是讓「架構師」能對齊規範，也讓「小白工程師」能透過代碼快速上手。
-
 ---
-
-# ⚓ HATEOAS 通用架構指南與 TODO 實戰範例
+description: HATEOAS 通用架構指南
+---
 
 ## 1. 核心哲學：資料與行為的物理隔離
 

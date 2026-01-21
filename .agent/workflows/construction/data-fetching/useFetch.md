@@ -1,3 +1,7 @@
+---
+description: $fetch, useAsyncData, useFetch 使用決策樹
+---
+
 在這三份關於 Nuxt 3 資料獲取（Data Fetching）的文件中，我為您整理了關鍵發現，並根據這些內容建立了 `useFetch` 與 `useAsyncData` 的使用指南。
 
 ### 第一部分：我發現了什麼？ (Findings)
