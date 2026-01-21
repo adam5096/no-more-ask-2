@@ -15,7 +15,7 @@ import AppFooter from '~/components/layouts/AppFooter.vue'
 
 <style scoped>
 .layout-main-layout {
-  @apply flex flex-col min-h-screen;
+  @apply flex flex-col min-h-[100dvh];
   @apply bg-white text-gray-900;
   /* 動態字體：實現全域無縫縮放 */
   font-size: clamp(1rem, 1.2vw + 0.8rem, 1.25rem);

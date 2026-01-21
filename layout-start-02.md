@@ -11,6 +11,7 @@ STEP 01：先掃描我的 `layouts\MyLayouts.vue`，並以此 layout 為基礎�
 
 STEP 02：做 Responsive Web Design
 - **Mobile-first 策略**：預設樣式為基礎，再透過斷點進行增量覆蓋。
+- **動態視窗高度**：優先使用 `dvh` (Dynamic Viewport Height) 替代 `vh`，解決移動端瀏覽器網址列與鍵盤造成的佈局跳動。
 - **斷點配置**：
   - sm: 300px
   - lg: 800px

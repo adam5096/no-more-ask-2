@@ -47,11 +47,12 @@ defineEmits(['close'])
 <style scoped>
 .auth-overlay {
   @apply fixed inset-0 z-[100] flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm;
+  @apply min-h-[100dvh];
 }
 
 .auth-modal {
   @apply bg-white border-4 border-gray-900 w-full max-w-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)];
-  @apply flex flex-col;
+  @apply flex flex-col max-h-full overflow-y-auto;
 }
 
 .auth-header {
