@@ -1,6 +1,6 @@
-這是一份根據影片內容整理的 **Nuxt Lazy Component（延遲載入元件）使用指南**，幫助你在專案中正確決策何時使用它。
-
-### Nuxt Lazy Component 使用指南
+---
+description: Nuxt Lazy Component 使用指南
+---
 
 #### 1. 核心機制
 Nuxt 允許你透過在元件名稱前加上 `Lazy` 前綴（例如 `<LazyAppFooter />`）來自動啟用延遲載入。

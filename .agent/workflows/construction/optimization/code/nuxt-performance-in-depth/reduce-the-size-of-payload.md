@@ -1,8 +1,9 @@
-這份指南是根據 Alexander Lichter 的 Nuxt 效能深度剖析影片整理而成，旨在協助開發者正確使用 `transform` 函數來優化 `__NUXT__` Payload 大小。
-
+---
+description: Nuxt transform 函數使用指南：Payload 優化策略
 ---
 
-# Nuxt `transform` 函數使用指南：Payload 優化策略
+這份指南是根據 Alexander Lichter 的 Nuxt 效能深度剖析影片整理而成，旨在協助開發者正確使用 `transform` 函數來優化 `__NUXT__` Payload 大小。
+
 
 ## 1. 核心概念
 在 Nuxt 應用（特別是 Nuxt 3）中，`useFetch` 或 `useAsyncData` 獲取的資料會被儲存在 `window.__NUXT__` 物件中（即 Payload），用於前端 Hydration（注水）。若 API 回傳過多不必要的欄位（Over-fetching），會導致 HTML 文件體積暴增，影響效能,。

@@ -1,4 +1,6 @@
-## 🚀 Web 資源載入優化開發指南 (Resource Loading Guide)
+---
+description: Web 資源載入優化開發指南
+---
 
 ### 1. 核心技術對照表
 
