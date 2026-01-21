@@ -1,9 +1,26 @@
+<script setup>
+import AuthOverlay from '~/components/auth/AuthOverlay.vue'
+
+const showLogin = ref(false)
+
+const toggleLogin = () => {
+  showLogin.value = !showLogin.value
+}
+</script>
+
 <template>
   <header class="component-header">
     <h1 class="component-title">My Application</h1>
     <nav class="component-nav">
-      <button class="component-btn">Action</button>
+      <button class="component-btn" @click="toggleLogin">
+        {{ showLogin ? 'Close' : 'Login' }}
+      </button>
     </nav>
+    
+    <!-- Login Overlay -->
+    <Teleport to="body">
+      <AuthOverlay v-if="showLogin" @close="showLogin = false" />
+    </Teleport>
   </header>
 </template>
 
@@ -11,6 +28,7 @@
 .component-header {
   @apply bg-white border-b-4 border-gray-900;
   @apply px-4 py-3 flex justify-between items-center;
+  @apply relative z-50;
 }
 
 .component-title {
