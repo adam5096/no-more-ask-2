@@ -28,3 +28,6 @@ logs
 
 # Generated Design Tokens
 assets/css/tokens.css
+
+# Others
+.vscode/**/*
