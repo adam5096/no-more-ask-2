@@ -17,11 +17,11 @@
             <input type="password" class="component-auth-input" />
           </div>
           <div class="component-auth-row">
-            <div class="component-auth-field flex-grow">
+            <div class="component-auth-field flex-grow min-w-0">
               <label class="component-auth-label">First Name</label>
               <input type="text" class="component-auth-input" />
             </div>
-            <div class="component-auth-field flex-grow">
+            <div class="component-auth-field flex-grow min-w-0">
               <label class="component-auth-label">Last Name</label>
               <input type="text" class="component-auth-input" />
             </div>
@@ -88,7 +88,7 @@ defineEmits(['close'])
 }
 
 .component-auth-input {
-  @apply border-2 border-gray-300 px-4 py-2 font-medium;
+  @apply border-2 border-gray-300 px-4 py-2 font-medium w-full;
   @apply transition-all duration-200;
   @apply focus:border-gray-900 focus:outline-none;
   font-size: clamp(0.9rem, 1vw + 0.8rem, 1.1rem);
