@@ -9,10 +9,10 @@ const toggleLogin = () => {
 </script>
 
 <template>
-  <header class="component-header">
-    <h1 class="component-title">My Application</h1>
-    <nav class="component-nav">
-      <button class="component-btn" @click="toggleLogin">
+  <header class="header-shell">
+    <h1 class="logo-title">My Application</h1>
+    <nav class="nav-area">
+      <button class="login-btn" @click="toggleLogin">
         {{ showLogin ? 'Close' : 'Login' }}
       </button>
     </nav>
@@ -25,22 +25,22 @@ const toggleLogin = () => {
 </template>
 
 <style scoped>
-.component-header {
+.header-shell {
   @apply bg-white border-b-4 border-gray-900;
   @apply px-4 py-3 flex justify-between items-center;
   @apply relative z-50;
 }
 
-.component-title {
+.logo-title {
   @apply font-black tracking-tight uppercase;
   font-size: clamp(1.2rem, 2vw + 1rem, 1.8rem);
 }
 
-.component-nav {
+.nav-area {
   @apply flex items-center gap-4;
 }
 
-.component-btn {
+.login-btn {
   @apply border-2 border-gray-900 px-4 py-1 font-bold rounded-none;
   @apply transition-all duration-200;
   @apply hover:rounded-lg active:scale-95;

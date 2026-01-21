@@ -34,10 +34,11 @@ STEP 06：顏色規範
 
 STEP 07：樣式抽離
 - Tailwind Utility 原子類請抽離到 `<style scoped>` 區塊中。
-- **命名規範**：使用具備語意的類名（Semantic Naming），而非外觀描述。
-  - `.layout-[name]` 用於 Layout 結構
-  - `.component-[name]` 用於 Component 組件
-  - 例如：使用 `.layout-main-container` 而非 `.layout-grid-3-cols`。
+- **命名規範**：類名與所在元素結構/用途直接關聯。
+  - `.layout-[name]` 用於母版結構。
+  - 內部組件類名以其「功能語意」為開頭，而非抽象類。
+  - 例如：Email 區塊使用 `.email-group`, `.email-label`, `.email-input`；按鈕使用 `.submit-btn`。
+  - 避免過度抽象的 `component-` 或 `c-` 前綴。
 
 STEP 08：Semantic HTML
 - 根據結構適當使用瀏覽器官方推薦的語意化標籤（如 `<header>`, `<main>`, `<footer>`, `<nav>`, `<article>` 等）。
