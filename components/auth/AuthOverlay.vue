@@ -3,7 +3,7 @@
     <div class="auth-modal">
       <header class="auth-header">
         <h2 class="auth-title">User Registration</h2>
-        <button class="close-btn" @click="handleClose">×</button>
+        <button class="close-btn" @click="handleClose">X</button>
       </header>
 
       <!-- 成功訊息 -->
@@ -174,8 +174,18 @@ const validateField = (fieldName: keyof RegisterDTO) => {
     case 'password':
       if (!value) {
         fieldErrors.push('密碼為必填欄位')
-      } else if (value.length < 6) {
-        fieldErrors.push('密碼長度至少為 6 個字元')
+      } else {
+        if (value.length < 6) {
+          fieldErrors.push('密碼長度至少為 6 個字元')
+        }
+        // 檢查是否包含特殊字元、大寫字母、小寫字母
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)
+        const hasUpperCase = /[A-Z]/.test(value)
+        const hasLowerCase = /[a-z]/.test(value)
+        
+        if (!hasSpecialChar || !hasUpperCase || !hasLowerCase) {
+          fieldErrors.push('密碼須包含一個以上如下字元：特殊字元、英文字母大、小寫')
+        }
       }
       break
 
