@@ -34,10 +34,24 @@ export const useAuth = () => {
     user.value = userData
   }
 
-  // 登出方法：清空 token 和用戶狀態
-  const logout = () => {
-    token.value = null
-    user.value = null
+  // 登出方法：調用 BFF API 後清空 token 和用戶狀態
+  const logout = async () => {
+    try {
+      // 調用 BFF 登出 API
+      await $fetch('/api/v1/auth/logout', {
+        method: 'POST'
+      })
+    } catch (error) {
+      // 即使 API 失敗，仍然清空本地狀態（防止卡在已登出但前端顯示已登入）
+      console.error('登出 API 失敗:', error)
+    } finally {
+      // 清空本地狀態
+      token.value = null
+      user.value = null
+      
+      // 跳轉至首頁
+      await navigateTo('/')
+    }
   }
 
   // 獲取用戶資料（可選：從 API 獲取）
