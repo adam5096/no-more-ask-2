@@ -1,8 +1,8 @@
 <template>
   <form class="auth-form" @submit.prevent="handleSubmit">
     <!-- 全域錯誤訊息 -->
-    <div v-if="externalErrors?.message" class="general-error">
-      {{ externalErrors.message[0] }}
+    <div v-if="externalErrors?.message || errors.message" class="general-error">
+      {{ (externalErrors?.message || errors.message)?.[0] }}
     </div>
     <div class="form-grid">
       <!-- Email 欄位 -->
@@ -31,14 +31,23 @@
           class="form-input password-input"
           :class="{ 'input-error': errors.password?.length }"
           :disabled="isLoading"
-          @blur="validateField('password')"
         />
-        <div v-if="errors.password?.length" class="error-message">
-          {{ errors.password[0] }}
+        
+        <!-- 密碼強度標籤雲 (Real-time) -->
+        <div class="password-criteria-cloud">
+          <div 
+            v-for="(isValid, key) in passwordCriteria" 
+            :key="key"
+            class="criteria-pill"
+            :class="{ 'is-valid': isValid }"
+          >
+            {{ criteriaLabels[key] }}
+          </div>
         </div>
       </div>
 
       <!-- First Name 和 Last Name 欄位 -->
+
       <div class="name-row">
         <div class="form-field flex-grow">
           <label class="form-label">First Name</label>
@@ -139,6 +148,28 @@ const formData = ref<RegisterDTO>({
 
 const errors = ref<FieldErrors>({})
 
+// 密碼即時驗證邏輯
+const criteriaLabels: Record<string, string> = {
+  length: '長度 ≥ 6',
+  special: '含特殊字元',
+  upper: '含大寫字母',
+  lower: '含小寫字母'
+}
+
+const passwordCriteria = computed(() => {
+  const pwd = formData.value.password
+  return {
+    length: pwd.length >= 6,
+    special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pwd),
+    upper: /[A-Z]/.test(pwd),
+    lower: /[a-z]/.test(pwd)
+  }
+})
+
+const isPasswordValid = computed(() => {
+  return Object.values(passwordCriteria.value).every(v => v)
+})
+
 // 監聽外部錯誤
 watch(() => props.externalErrors, (newErrors) => {
   if (newErrors) {
@@ -161,19 +192,7 @@ const validateField = (fieldName: keyof RegisterDTO) => {
       break
 
     case 'password':
-      if (!value) {
-        fieldErrors.push('密碼為必填欄位')
-      } else {
-        if (value.length < 6) {
-          fieldErrors.push('密碼長度至少為 6 個字元')
-        }
-        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)
-        const hasUpperCase = /[A-Z]/.test(value)
-        const hasLowerCase = /[a-z]/.test(value)
-        if (!hasSpecialChar || !hasUpperCase || !hasLowerCase) {
-          fieldErrors.push('密碼須包含一個以上如下字元：特殊字元、英文字母大、小寫')
-        }
-      }
+      // 舊有的密碼失焦驗證已由即時驗證取代
       break
 
     case 'firstName':
@@ -195,14 +214,19 @@ const validateField = (fieldName: keyof RegisterDTO) => {
 
 // 提交處理
 const handleSubmit = () => {
+  // 清除之前的錯誤
+  errors.value = {}
+  
   // 全域驗證
   validateField('email')
   validateField('password')
   validateField('firstName')
   validateField('lastName')
 
-  if (Object.keys(errors.value).length === 0) {
+  if (Object.keys(errors.value).length === 0 && isPasswordValid.value) {
     emit('submit', { ...formData.value })
+  } else if (!isPasswordValid.value) {
+    errors.value = { ...errors.value, message: ['請先滿足所有密碼檢查條件'] }
   }
 }
 </script>
@@ -241,6 +265,24 @@ const handleSubmit = () => {
 
 .error-message {
   @apply text-red-500 text-sm font-medium mt-1;
+}
+
+/* 密碼標籤雲樣式 */
+.password-criteria-cloud {
+  @apply flex flex-wrap gap-2 mt-3;
+}
+
+.criteria-pill {
+  @apply px-3 py-1 text-xs font-black uppercase tracking-wider;
+  @apply border-2 border-gray-900 bg-white text-gray-400;
+  @apply transition-all duration-300 ease-in-out;
+  @apply rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)];
+}
+
+.criteria-pill.is-valid {
+  @apply bg-green-400 text-gray-900 border-gray-900;
+  @apply rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)];
+  @apply translate-x-[1px] translate-y-[1px] shadow-none;
 }
 
 .general-error {
