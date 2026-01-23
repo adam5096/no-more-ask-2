@@ -16,8 +16,8 @@ vi.mock('~/composables/useAuth', () => ({
       mockToken.value = token
       mockUser.value = userData
     },
-    register: (token: string, userData: { email: string; userId: string }) => {
-      mockToken.value = token
+    register: (userData: { email: string; userId: string }) => {
+      mockToken.value = null // 註冊不再直接取得 token
       mockUser.value = userData
     },
     logout: () => {
@@ -122,7 +122,6 @@ describe('AuthOverlay', () => {
       
       // Mock API 成功回應
       mockFetch.mockResolvedValue({
-        token: 'fake-token',
         email: 'test@example.com',
         userId: '123'
       })
@@ -180,7 +179,6 @@ describe('AuthOverlay', () => {
       await wrapper.find('.lastname-input').setValue('Doe')
       
       mockFetch.mockResolvedValue({
-        token: 'fake-token',
         email: 'test@example.com',
         userId: '123'
       })
@@ -329,7 +327,6 @@ describe('AuthOverlay', () => {
       
       // Mock API 返回成功回應
       mockFetch.mockResolvedValue({
-        token: 'fake-token',
         email: 'test@example.com',
         userId: '123'
       })

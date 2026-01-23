@@ -121,7 +121,6 @@ interface RegisterDTO {
 }
 
 interface RegisterResponse {
-  token: string
   email: string
   userId: string
 }
@@ -250,8 +249,8 @@ const handleSubmit = async () => {
       }
     })
 
-    // 儲存認證資訊
-    auth.register(response.token, {
+    // 儲存用戶資訊
+    auth.register({
       email: response.email,
       userId: response.userId
     })

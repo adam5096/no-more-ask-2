@@ -11,9 +11,9 @@ interface RegisterDTO {
 }
 
 interface RegisterResponse {
-  token: string
   email: string
   userId: string
+  token?: string
 }
 
 interface FieldErrors {
@@ -52,8 +52,9 @@ export default defineEventHandler(async (event) => {
       }
     )
 
-    // 返回成功回應
-    return response
+    // 返回成功回應（移除 token，僅返回必要資訊）
+    const { token, ...safeResponse } = response
+    return safeResponse
   } catch (error: any) {
     // 統一錯誤處理
     // 處理欄位級別錯誤

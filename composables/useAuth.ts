@@ -29,9 +29,8 @@ export const useAuth = () => {
     user.value = userData
   }
 
-  // 註冊方法：儲存 token 和用戶資料（與登入相同邏輯）
-  const register = (authToken: string, userData: User) => {
-    token.value = authToken
+  // 註冊方法：儲存用戶資料（不再接收 token，由登入 API 處理）
+  const register = (userData: User) => {
     user.value = userData
   }
 
