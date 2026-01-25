@@ -1,16 +1,16 @@
 ---
-name: 串接 會員登入 API
-description: 串接 會員登入 API 施工步驟指南
+name: 串接 會員登出 API
+description: 串接 會員登出 API 施工步驟指南
 ---
 
-# 串接 會員登入 API
+# 串接 會員登出 API
 
-當前任務是 "串接 會員登入 API"，請設計施工步驟和關注點
+當前任務是 "串接 會員登出 API"，請設計施工步驟和關注點
 
 ## 施工步驟
 
 STEP：根據外部後端團隊提供的 JSON、Schema 如下：
-`.agent\skills\api\auth\login\resource\api-login-schema.md`
+`.agent\skills\api\auth\logout\resource\api-logout-schema.md`
 
 STEP：
 **驗證時機**：採用失焦驗證
@@ -21,10 +21,10 @@ STEP：
 
 STEP：根據 Nitro Endpoint 設計規範請參考 `.agent\workflows\construction\nitro\bff-paths.md`
 
-STEP：請評估登入事件基本資訊如下：
-**定位登入觸發元件**：（ 必要 ）如果設計成父、子結構，請合理安排統一由父層管理所有事件和狀態，並向後代元件派發事件和狀態，形成可追蹤狀態流動。如果只有單層元件結構，則統一在當代元件管理事件與狀態。
+STEP：請評估登出事件基本資訊如下：
+**定位登出觸發元件**：（ 必要 ）如果設計成父、子結構，請合理安排統一由父層管理所有事件和狀態，並向後代元件派發事件和狀態，形成可追蹤狀態流動。如果只有單層元件結構，則統一在當代元件管理事件與狀態。
 
-**詢問完成登入事件後的下一步**：（ 必要 ）向前端人員確認是否需要跳轉到登入頁面
+**詢問完成登出事件後的下一步**：（ 必要 ）向前端人員確認是否需要跳轉到登入頁面
 
 **定位元件中的元素**：（ 必要 ）定位觸發事件的起點元素，即 event.target 是哪個 DOM 元素
 
@@ -38,6 +38,12 @@ STEP：請評估該事件為同步或是非同步任務
 STEP：如果是非同步任務，請評估是否需要加入狀態鎖和 UI/UX 優雅處理
 
 STEP：請評估使用 $fetch、useFetch、useAsyncData 的適合度，並注意各自的使用限制，請參考 `.agent\workflows\construction\data-fetching\useFetch.md`
+
+STEP：分享一下你設計的登出 pipline 中，各系統（ 前端 、BFF、外部後端 ）循序是什麼樣子？
+
+STEP：登出 pipline 中非同步任務等候處理，你想如何設計這段等待時間的 UIUX ？
+
+STEP：目前註冊、登入、登出，三者 pipeline 中的非同步等候時間的 UIUX 有統一且一致的 UIUX 嗎?
 
 **最後 請先與我討論，並確認下列幾點**
 確認：上述提及 STEP 可行性與適合度
