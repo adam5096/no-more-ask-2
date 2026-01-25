@@ -1,16 +1,16 @@
 ---
-name: 串接 會員註冊 API
-description: 串接 會員註冊 API 施工步驟指南
+name: 串接 會員登入 API
+description: 串接 會員登入 API 施工步驟指南
 ---
 
-# 串接 會員註冊 API
+# 串接 會員登入 API
 
-當前任務是 "串接 會員註冊 API"，請設計施工步驟和關注點
+當前任務是 "串接 會員登入 API"，請設計施工步驟和關注點
 
 ## 施工步驟
 
 STEP：根據外部後端團隊提供的 JSON、Schema 如下：
-`.agent\skills\api\auth\register\resources\api-endpoint-schema.md`
+`.agent\skills\api\auth\login\resource\api-login-schema.md`
 
 STEP：
 **驗證時機**：採用失焦驗證
@@ -19,14 +19,12 @@ STEP：
 
 **displayName 處理**：當欄位為空時，發送 null
 
-**特規注意**：密碼驗證規格請參考 `.agent\skills\api\auth\register\resources\password-verification-format.md`
-
 STEP：根據 Nitro Endpoint 設計規範請參考 `.agent\workflows\construction\nitro\bff-paths.md`
 
-STEP：請評估註冊事件基本資訊如下：
-**定位註冊觸發元件**：（ 必要 ）如果設計成父、子結構，請合理安排統一由父層管理所有事件和狀態，並向後代元件派發事件和狀態，形成可追蹤狀態流動。如果只有單層元件結構，則統一在當代元件管理事件與狀態。
+STEP：請評估登入事件基本資訊如下：
+**定位登入觸發元件**：（ 必要 ）如果設計成父、子結構，請合理安排統一由父層管理所有事件和狀態，並向後代元件派發事件和狀態，形成可追蹤狀態流動。如果只有單層元件結構，則統一在當代元件管理事件與狀態。
 
-**詢問完成註冊事件後的下一步**：（ 必要 ）向前端人員確認是否需要跳轉到登入頁面
+**詢問完成登入事件後的下一步**：（ 必要 ）向前端人員確認是否需要跳轉到登入頁面
 
 **定位元件中的元素**：（ 必要 ）定位觸發事件的起點元素，即 event.target 是哪個 DOM 元素
 
@@ -50,12 +48,11 @@ STEP：請評估使用 $fetch、useFetch、useAsyncData 的適合度，並注意
 
 確認：任務關注點切分合理，每次工作量不會過多過長
 
+
 最後確認：取得我同意後才能修改程式碼
 
 ## 如何提供回饋給我
 
-STEP： 清楚說明需要修改的地方
-
-STEP： 解釋原因，而不僅僅是說明需要修改的地方
-
-STEP： 提供替代方案
+- 清楚說明需要修改的地方
+- 解釋原因，而不僅僅是說明需要修改的地方
+- 提供替代方案
