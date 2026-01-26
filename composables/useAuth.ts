@@ -23,15 +23,43 @@ export const useAuth = () => {
     return !!token.value && !!user.value
   })
 
-  // 登入方法：儲存 token 和用戶資料
-  const login = (authToken: string, userData: User) => {
-    token.value = authToken
-    user.value = userData
+  // 登入方法：發送 API 請求並儲存狀態
+  const login = async (credentials: { email: string; password: string }) => {
+    const response = await $fetch<{ token: string; email: string; userId: string }>(
+      '/api/v1/auth/login',
+      {
+        method: 'POST',
+        body: credentials
+      }
+    )
+
+    // 儲存狀態
+    token.value = response.token
+    user.value = {
+      email: response.email,
+      userId: response.userId
+    }
+
+    return response
   }
 
-  // 註冊方法：儲存用戶資料（不再接收 token，由登入 API 處理）
-  const register = (userData: User) => {
-    user.value = userData
+  // 註冊方法：發送 API 請求並儲存狀態
+  const register = async (userData: any) => {
+    const response = await $fetch<{ email: string; userId: string }>(
+      '/api/v1/auth/register',
+      {
+        method: 'POST',
+        body: userData
+      }
+    )
+
+    // 儲存狀態
+    user.value = {
+      email: response.email,
+      userId: response.userId
+    }
+
+    return response
   }
 
   // 登出方法：調用 BFF API 後清空 token 和用戶狀態

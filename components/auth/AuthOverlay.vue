@@ -88,17 +88,7 @@ const handleLogin = async (data: any) => {
   errors.value = {}
 
   try {
-    const response = await $fetch<any>('/api/v1/auth/login', {
-      method: 'POST',
-      body: data
-    })
-
-    // 儲存 Token 與用戶資訊
-    auth.login(response.token, {
-      email: response.email,
-      userId: response.userId
-    })
-
+    await auth.login(data)
     successMessage.value = '登入成功！正在跳轉...'
 
     setTimeout(() => {
@@ -121,17 +111,7 @@ const handleRegister = async (data: any) => {
   errors.value = {}
 
   try {
-    const response = await $fetch<any>('/api/v1/auth/register', {
-      method: 'POST',
-      body: data
-    })
-
-    // 儲存用戶資訊
-    auth.register({
-      email: response.email,
-      userId: response.userId
-    })
-
+    await auth.register(data)
     successMessage.value = '註冊成功！歡迎加入'
 
     setTimeout(() => {
