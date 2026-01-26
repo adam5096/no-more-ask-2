@@ -37,7 +37,13 @@ STEP：請評估註冊事件基本資訊如下：
 
 STEP：請評估該事件為同步或是非同步任務
 
-STEP：如果是非同步任務，請評估是否需要加入狀態鎖和 UI/UX 優雅處理
+STEP：如果是非同步任務，請評估如下狀況：
+
+邏輯層：是否加入 try-catch-finally
+
+UI 層：是否加入狀態鎖和 UI/UX 優雅處理
+
+STEP：因牽涉邏輯處理，請參考 `.agent\workflows\construction` 中相關文件
 
 STEP：請評估使用 $fetch、useFetch、useAsyncData 的適合度，並注意各自的使用限制，請參考 `.agent\workflows\construction\data-fetching\useFetch.md`
 
