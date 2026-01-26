@@ -1,5 +1,5 @@
 // BFF 層：會員登入 API 代理
-// 代理外部後端 API：https://lazypeople.zeabur.app/api/Auth/login
+// 代理外部後端 API
 
 // 型別定義
 interface LoginDTO {
@@ -19,14 +19,11 @@ export default defineEventHandler(async (event) => {
     const body = await readBody<LoginDTO>(event)
 
     // 代理請求至外部後端 API
-    const response = await $fetch<LoginResponse>(
-      'https://lazypeople.zeabur.app/api/Auth/login',
+    const response = await $remoteFetch<LoginResponse>(
+      REMOTE_ENDPOINTS.AUTH.LOGIN,
       {
         method: 'POST',
-        body,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body
       }
     )
 

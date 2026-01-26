@@ -1,5 +1,5 @@
 // BFF 層：會員註冊 API 代理
-// 代理外部後端 API：https://lazypeople.zeabur.app/api/Auth/register
+// 代理外部後端 API
 
 // 型別定義
 interface RegisterDTO {
@@ -41,14 +41,11 @@ export default defineEventHandler(async (event) => {
     }
 
     // 代理請求至外部後端 API
-    const response = await $fetch<RegisterResponse>(
-      'https://lazypeople.zeabur.app/api/Auth/register',
+    const response = await $remoteFetch<RegisterResponse>(
+      REMOTE_ENDPOINTS.AUTH.REGISTER,
       {
         method: 'POST',
-        body: processedBody,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: processedBody
       }
     )
 

@@ -1,5 +1,5 @@
 // BFF 層：會員登出 API 代理
-// 代理外部後端 API：https://lazypeople.zeabur.app/api/Auth/logout
+// 代理外部後端 API
 
 export default defineEventHandler(async (event) => {
   try {
@@ -17,13 +17,12 @@ export default defineEventHandler(async (event) => {
     }
 
     // 代理請求至外部後端 API，在 Header 中帶上 token
-    const response = await $fetch<{ message: string }>(
-      'https://lazypeople.zeabur.app/api/Auth/logout',
+    const response = await $remoteFetch<{ message: string }>(
+      REMOTE_ENDPOINTS.AUTH.LOGOUT,
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Authorization': `Bearer ${token}`
         }
       }
     )
