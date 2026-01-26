@@ -1,5 +1,5 @@
 ---
-alwaysApply: true
+description: git commit message 類型參考
 ---
 
 ## 類型 (Type) - 必需
