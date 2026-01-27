@@ -34,6 +34,12 @@ description: 根據專案編程範式與設計原則進行 Code Review
 - 依賴注入
 - BFF 路徑命名
 
+### 4. ESLint 規範
+詳見 [eslint-review.md](./instructions/eslint-review.md)
+- 禁用 any 類型
+- 禁止未使用變數
+- 統一錯誤處理
+
 ## 審查輸出格式
 
 ```
