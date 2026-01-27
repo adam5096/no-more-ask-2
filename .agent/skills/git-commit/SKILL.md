@@ -50,7 +50,7 @@ description: 根據 Conventional Commits 規範生成 Git commit message
 - 使用**祈使句**（如：add, fix, update）
 - 開頭不大寫
 - 結尾不加句號
-- 使用繁體中文或英文皆可
+- 使用台灣繁體中文
 
 ## 範例
 
