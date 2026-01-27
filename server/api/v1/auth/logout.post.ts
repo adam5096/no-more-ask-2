@@ -1,6 +1,8 @@
 // BFF 層：會員登出 API 代理
 // 代理外部後端 API
 
+import { toApiError } from '~/types/api-error'
+
 export default defineEventHandler(async (event) => {
   try {
     // 從 cookie 讀取 token
@@ -29,7 +31,8 @@ export default defineEventHandler(async (event) => {
 
     // 返回成功回應
     return response
-  } catch (error: any) {
+  } catch (err: unknown) {
+    const error = toApiError(err)
     // 統一錯誤處理
     throw createError({
       statusCode: error.statusCode || 500,

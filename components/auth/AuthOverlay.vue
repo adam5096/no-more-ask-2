@@ -61,6 +61,7 @@
 import LoginForm from './LoginForm.vue'
 import RegisterForm from './RegisterForm.vue'
 import { useAuth } from '~/composables/useAuth'
+import { toApiError, type FieldErrors } from '~/types/api-error'
 
 // Emits
 const emit = defineEmits<{
@@ -74,7 +75,22 @@ const auth = useAuth()
 const mode = ref<'login' | 'register'>('login')
 const isLoading = ref(false)
 const successMessage = ref('')
-const errors = ref<any>({})
+const errors = ref<FieldErrors>({})
+
+// 登入 DTO
+interface LoginDTO {
+  email: string
+  password: string
+}
+
+// 註冊 DTO
+interface RegisterDTO {
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  displayName?: string
+}
 
 // 切換模式
 const setMode = (newMode: 'login' | 'register') => {
@@ -83,7 +99,7 @@ const setMode = (newMode: 'login' | 'register') => {
 }
 
 // 登入處理
-const handleLogin = async (data: any) => {
+const handleLogin = async (data: LoginDTO) => {
   isLoading.value = true
   errors.value = {}
 
@@ -94,7 +110,8 @@ const handleLogin = async (data: any) => {
     setTimeout(() => {
       handleClose()
     }, 2000)
-  } catch (error: any) {
+  } catch (err: unknown) {
+    const error = toApiError(err)
     if (error.data?.errors) {
       errors.value = error.data.errors
     } else {
@@ -106,7 +123,7 @@ const handleLogin = async (data: any) => {
 }
 
 // 註冊處理
-const handleRegister = async (data: any) => {
+const handleRegister = async (data: RegisterDTO) => {
   isLoading.value = true
   errors.value = {}
 
@@ -117,7 +134,8 @@ const handleRegister = async (data: any) => {
     setTimeout(() => {
       handleClose()
     }, 2000)
-  } catch (error: any) {
+  } catch (err: unknown) {
+    const error = toApiError(err)
     if (error.data?.errors) {
       errors.value = error.data.errors
     } else {

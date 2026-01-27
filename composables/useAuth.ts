@@ -44,7 +44,13 @@ export const useAuth = () => {
   }
 
   // 註冊方法：發送 API 請求並儲存狀態
-  const register = async (userData: any) => {
+  const register = async (userData: {
+    email: string
+    password: string
+    firstName: string
+    lastName: string
+    displayName?: string
+  }) => {
     const response = await $fetch<{ email: string; userId: string }>(
       '/api/v1/auth/register',
       {

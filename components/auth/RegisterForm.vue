@@ -160,7 +160,7 @@ const passwordCriteria = computed(() => {
   const pwd = formData.value.password
   return {
     length: pwd.length >= 6,
-    special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pwd),
+    special: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pwd),
     upper: /[A-Z]/.test(pwd),
     lower: /[a-z]/.test(pwd)
   }

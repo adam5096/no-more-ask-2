@@ -1,6 +1,8 @@
 // BFF 層：會員登入 API 代理
 // 代理外部後端 API
 
+import { toApiError } from '~/types/api-error'
+
 // 型別定義
 interface LoginDTO {
   email: string
@@ -29,7 +31,8 @@ export default defineEventHandler(async (event) => {
 
     // 返回成功回應（包含 token，由前端 composable 處理存儲）
     return response
-  } catch (error: any) {
+  } catch (err: unknown) {
+    const error = toApiError(err)
     // 統一錯誤處理
     // 處理欄位級別錯誤或認證錯誤
     if (error.data?.errors || error.statusCode === 401) {

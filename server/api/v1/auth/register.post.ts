@@ -1,6 +1,8 @@
 // BFF 層：會員註冊 API 代理
 // 代理外部後端 API
 
+import { toApiError, type FieldErrors } from '~/types/api-error'
+
 // 型別定義
 interface RegisterDTO {
   email: string
@@ -16,18 +18,7 @@ interface RegisterResponse {
   token?: string
 }
 
-interface FieldErrors {
-  email?: string[]
-  password?: string[]
-  firstName?: string[]
-  lastName?: string[]
-  displayName?: string[]
-}
-
-interface ErrorResponse {
-  errors?: FieldErrors
-  message?: string
-}
+// FieldErrors 從 ~/types/api-error 導入
 
 export default defineEventHandler(async (event) => {
   try {
@@ -49,10 +40,13 @@ export default defineEventHandler(async (event) => {
       }
     )
 
-    // 返回成功回應（移除 token，僅返回必要資訊）
-    const { token, ...safeResponse } = response
-    return safeResponse
-  } catch (error: any) {
+    // 返回成功回應（僅返回必要資訊）
+    return {
+      email: response.email,
+      userId: response.userId
+    }
+  } catch (err: unknown) {
+    const error = toApiError(err)
     // 統一錯誤處理
     // 處理欄位級別錯誤
     if (error.data?.errors) {

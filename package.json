@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -20,13 +21,16 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.13.0",
     "@nuxt/test-utils": "^3.23.0",
     "@vitest/ui": "^4.0.17",
     "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.23",
+    "eslint": "^9.39.2",
     "happy-dom": "^20.3.4",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
     "vitest": "^4.0.17"
   }
 }
