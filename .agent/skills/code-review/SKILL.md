@@ -34,7 +34,13 @@ description: 根據專案編程範式與設計原則進行 Code Review
 - 依賴注入
 - BFF 路徑命名
 
-### 4. ESLint 規範
+### 4. 組件與邏輯收斂
+詳見 [unification-review.md](./instructions/unification-review.md)
+- UI 原子化檢查
+- 跨流程 UX 一致性
+- 單一真理來源 (SSOT)
+
+### 5. ESLint 規範
 詳見 [eslint-review.md](./instructions/eslint-review.md)
 - 禁用 any 類型
 - 禁止未使用變數
