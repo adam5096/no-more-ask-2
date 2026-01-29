@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import AppHeader from '~/components/layouts/AppHeader.vue'
 
-const props = defineProps({
-  error: Object
+defineProps({
+  error: {
+    type: Object,
+    default: () => ({})
+  }
 })
 
 const handleError = () => clearError({ redirect: '/' })

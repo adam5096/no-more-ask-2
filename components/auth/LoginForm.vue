@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePasswordStrength, criteriaLabels } from '~/composables/usePasswordStrength'
+import { usePasswordStrength } from '~/composables/usePasswordStrength'
 import AuthInput from './AuthInput.vue'
 import PasswordCriteriaCloud from './PasswordCriteriaCloud.vue'
 

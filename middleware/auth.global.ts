@@ -50,7 +50,7 @@ export default defineNuxtRouteMiddleware((to) => {
   const { isAuthenticated } = useAuth()
 
   const action = resolveAuthAction(
-    to.meta as any,
+    to.meta as Parameters<typeof resolveAuthAction>[0],
     to.path,
     to.matched.length,
     {
