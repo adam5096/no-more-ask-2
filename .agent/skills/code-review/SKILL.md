@@ -30,6 +30,10 @@ description: 根據專案編程範式與設計原則進行 Code Review
     載入 [vue-review.md](./instructions/vue-review.md)
     *   重點：Atomic UI, Component Structure, Single Responsibility.
 
+4.  **配置與治理 (`nuxt.config.ts`, `**/endpoints.ts`)**:
+    載入 [config-review.md](./instructions/config-review.md) 與 [endpoint-review.md](./instructions/endpoint-review.md)
+    *   重點：Environment Isolation, Secrets Management.
+
 ## 核心審查維度
 
 ### 1. 函數式編程原則
@@ -44,7 +48,11 @@ description: 根據專案編程範式與設計原則進行 Code Review
 詳見 [unification-review.md](./instructions/unification-review.md)
 - UI 原子化、SSOT 原則。
 
-### 4. ESLint 指引
+### 4. 端點與配置治理
+詳見 [endpoint-review.md](./instructions/endpoint-review.md) 與 [config-review.md](./instructions/config-review.md)
+- 環境隔離、SSOT、安全性檢查。
+
+### 5. ESLint 指引
 詳見 [eslint-review.md](./instructions/eslint-review.md)
 - 型別安全、錯誤處理規範。
 

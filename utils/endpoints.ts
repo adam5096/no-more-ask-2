@@ -11,15 +11,3 @@ export const API_ENDPOINTS = {
     LOGOUT: '/api/v1/auth/logout'
   }
 } as const
-
-// BFF 代理呼叫外部後端的端點 (Remote API)
-// 保持與 server/utils/remote-endpoints.ts 一致，或未來整合至此
-export const REMOTE_ENDPOINTS = {
-  AUTH: {
-    LOGIN: '/Auth/login',
-    REGISTER: '/Auth/register',
-    LOGOUT: '/Auth/logout'
-  }
-} as const
-
-export type RemoteEndpoint = typeof REMOTE_ENDPOINTS
