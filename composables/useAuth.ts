@@ -15,8 +15,16 @@ export const useAuth = () => {
     httpOnly: false // 需要在前端讀取
   })
 
+  // 用戶基本資訊持久化：解決重新整理後 UI 狀態丟失
+  const userInfoCookie = useCookie<User | null>('user_info', {
+    default: () => null,
+    secure: true,
+    sameSite: 'strict'
+  })
+
   // 用戶狀態：使用 useState 儲存用戶資料（跨元件共享）
-  const user = useState<User | null>('user', () => null)
+  // 初始化時優先從 Cookie 恢復，確保補水一致性
+  const user = useState<User | null>('user', () => userInfoCookie.value)
 
   // 認證狀態：使用 computed 自動計算（永遠與實際狀態同步）
   const isAuthenticated = computed(() => {
@@ -26,19 +34,22 @@ export const useAuth = () => {
   // 登入方法：發送 API 請求並儲存狀態
   const login = async (credentials: { email: string; password: string }) => {
     const response = await $fetch<{ token: string; email: string; userId: string }>(
-      '/api/v1/auth/login',
+      API_ENDPOINTS.AUTH.LOGIN,
       {
         method: 'POST',
         body: credentials
       }
     )
 
-    // 儲存狀態
-    token.value = response.token
-    user.value = {
+    // 儲存狀態到記憶體與 Cookie
+    const userData = {
       email: response.email,
       userId: response.userId
     }
+    
+    token.value = response.token
+    user.value = userData
+    userInfoCookie.value = userData
 
     return response
   }
@@ -52,7 +63,7 @@ export const useAuth = () => {
     displayName?: string
   }) => {
     const response = await $fetch<{ email: string; userId: string }>(
-      '/api/v1/auth/register',
+      API_ENDPOINTS.AUTH.REGISTER,
       {
         method: 'POST',
         body: userData
@@ -60,10 +71,12 @@ export const useAuth = () => {
     )
 
     // 儲存狀態
-    user.value = {
+    const newUser = {
       email: response.email,
       userId: response.userId
     }
+    user.value = newUser
+    userInfoCookie.value = newUser
 
     return response
   }
@@ -71,19 +84,26 @@ export const useAuth = () => {
   // 登出方法：調用 BFF API 後清空 token 和用戶狀態
   const logout = async () => {
     try {
-      // 調用 BFF 登出 API
-      await $fetch('/api/v1/auth/logout', {
+      // 根據 /useFetch 規範：在事件中使用 $fetch
+      // 確保 API 響應後才進行本地銷毀
+      await $fetch(API_ENDPOINTS.AUTH.LOGOUT, {
         method: 'POST'
       })
-    } catch (error) {
-      // 即使 API 失敗，仍然清空本地狀態（防止卡在已登出但前端顯示已登入）
-      console.error('登出 API 失敗:', error)
-    } finally {
+      
       // 清空本地狀態
       token.value = null
       user.value = null
+      userInfoCookie.value = null
       
       // 跳轉至首頁
+      await navigateTo('/')
+    } catch (error) {
+      // 防禦性處理：即使 API 失敗，若 token 已無效也應清空本地
+      console.error('登出 API 失敗:', error)
+      // 視專案治理政策決定是否強制清空
+      token.value = null
+      user.value = null
+      userInfoCookie.value = null
       await navigateTo('/')
     }
   }
@@ -93,8 +113,6 @@ export const useAuth = () => {
     // 如果 token 存在但用戶資料為空，可以從 API 獲取
     if (token.value && !user.value) {
       // TODO: 實作從 API 獲取用戶資料的邏輯
-      // const userData = await $fetch('/api/v1/user/profile')
-      // user.value = userData
     }
   }
 

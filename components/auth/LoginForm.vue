@@ -46,7 +46,7 @@
         :disabled="isLoading"
         :class="{ 'submitting': isLoading }"
       >
-        {{ isLoading ? '登入中...' : 'Login' }}
+        {{ isLoading ? '登入中...' : '登入' }}
       </button>
     </div>
   </form>

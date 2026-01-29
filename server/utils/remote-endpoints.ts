@@ -1,13 +1,6 @@
 /**
  * 外部後端 API 端點清單
- * 未來後端更動路徑時，工程師僅需修改此處
+ * 統一彙整至 ~/utils/endpoints.ts
  */
-export const REMOTE_ENDPOINTS = {
-  AUTH: {
-    LOGIN: '/Auth/login',
-    REGISTER: '/Auth/register',
-    LOGOUT: '/Auth/logout'
-  },
-} as const
-
-export type RemoteEndpoint = typeof REMOTE_ENDPOINTS
+export { REMOTE_ENDPOINTS } from '~/utils/endpoints'
+export type { RemoteEndpoint } from '~/utils/endpoints'

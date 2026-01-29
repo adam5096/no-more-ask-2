@@ -3,7 +3,7 @@
     <div class="auth-modal">
       <header class="auth-header">
         <h2 class="auth-title">
-          {{ mode === 'login' ? 'User Login' : 'User Registration' }}
+          {{ mode === 'login' ? '登入' : '註冊' }}
         </h2>
         <button class="close-btn" @click="handleClose" :disabled="isLoading">X</button>
       </header>
@@ -25,7 +25,7 @@
             @click="setMode('login')"
             :disabled="isLoading"
           >
-            Login
+            登入
           </button>
           <button
             class="switch-btn"
@@ -33,7 +33,7 @@
             @click="setMode('register')"
             :disabled="isLoading"
           >
-            Register
+            註冊
           </button>
         </div>
 
@@ -58,10 +58,18 @@
 </template>
 
 <script setup lang="ts">
+import { ref, type PropType } from 'vue'
 import LoginForm from './LoginForm.vue'
 import RegisterForm from './RegisterForm.vue'
 import { useAuth } from '~/composables/useAuth'
 import { toApiError, type FieldErrors } from '~/types/api-error'
+
+const props = defineProps({
+  initialMode: {
+    type: String as PropType<'login' | 'register'>,
+    default: 'login'
+  }
+})
 
 // Emits
 const emit = defineEmits<{
@@ -72,7 +80,7 @@ const emit = defineEmits<{
 const auth = useAuth()
 
 // 狀態管理
-const mode = ref<'login' | 'register'>('login')
+const mode = ref<'login' | 'register'>(props.initialMode)
 const isLoading = ref(false)
 const successMessage = ref('')
 const errors = ref<FieldErrors>({})

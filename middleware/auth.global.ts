@@ -14,13 +14,18 @@ export default defineNuxtRouteMiddleware((to) => {
     return
   }
 
-  // 3. 預設例外：首頁 (可視為隱性公開，或強制要求首頁也加 public: true)
+  // 3. 預設例外：首頁 (可視為隱性公開)
   if (to.path === '/') {
     return
   }
 
-  // 4. 認證檢查：未登入者重定向至首頁
-  if (!isAuthenticated.value) {
+  // 4. 404 智慧攔截：已登入者放行至 error.vue (UX 優化)
+  if (to.matched.length === 0 && isAuthenticated.value) {
+    return
+  }
+
+  // 5. 安全檢查：未登入者或嘗試探測不存在路徑者，一律重定向至首頁
+  if (!isAuthenticated.value || to.matched.length === 0) {
     return navigateTo('/')
   }
 })

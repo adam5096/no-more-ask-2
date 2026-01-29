@@ -1,12 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import AuthOverlay from '~/components/auth/AuthOverlay.vue'
 import { useAuth } from '~/composables/useAuth'
 
 const showLogin = ref(false)
+const authMode = ref<'login' | 'register'>('login')
 const isLoggingOut = ref(false)
 const { isAuthenticated, user, logout } = useAuth()
 
-const toggleLogin = () => {
+const toggleLogin = (mode: 'login' | 'register' = 'login') => {
+  authMode.value = mode
   showLogin.value = !showLogin.value
 }
 
@@ -27,8 +29,8 @@ const handleLogout = async () => {
     <h1 class="logo-title">My Application</h1>
     <nav class="nav-area">
       <!-- 未登入狀態：顯示 Login 按鈕 -->
-      <button v-if="!isAuthenticated" class="login-btn" @click="toggleLogin">
-        {{ showLogin ? 'Close' : 'Login' }}
+      <button v-if="!isAuthenticated" class="login-btn" @click="toggleLogin('login')">
+        {{ showLogin ? '關閉' : '登入' }}
       </button>
       
       <!-- 已登入狀態：顯示使用者 email + Logout 按鈕 -->
@@ -40,14 +42,18 @@ const handleLogout = async () => {
           :class="{ 'submitting': isLoggingOut }"
           @click="handleLogout"
         >
-          {{ isLoggingOut ? '登出中...' : 'Logout' }}
+          {{ isLoggingOut ? '登出中...' : '登出' }}
         </button>
       </div>
     </nav>
     
     <!-- Login Overlay -->
     <Teleport to="body">
-      <AuthOverlay v-if="showLogin" @close="showLogin = false" />
+      <AuthOverlay 
+        v-if="showLogin" 
+        :initial-mode="authMode"
+        @close="showLogin = false" 
+      />
     </Teleport>
   </header>
 </template>
