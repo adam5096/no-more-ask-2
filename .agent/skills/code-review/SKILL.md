@@ -5,7 +5,7 @@ description: 根據專案編程範式與設計原則進行 Code Review
 
 # Code Review Skill
 
-根據 `.agent/workflows/construction/` 中的編程範式與設計原則，對程式碼進行審查。
+根據 `.agent/workflows/construction/` 中的編程範式與設計原則，以及特定架構位置的規範，對程式碼進行審查。
 
 ## 使用方式
 
@@ -14,42 +14,46 @@ description: 根據專案編程範式與設計原則進行 Code Review
 請使用 code-review skill 審查 [檔案路徑或程式碼]
 ```
 
-## 審查範圍
+## 審查邏輯 (Path-Aware)
+
+當執行審查時，請優先根據**檔案所在路徑**載入對應的細節規範：
+
+1.  **Middleware 層 (`middleware/`)**:
+    載入 [middleware-review.md](./instructions/middleware-review.md)
+    *   重點：Auth Guard, Side-effect Isolation, Session Restoration.
+
+2.  **Server/API 層 (`server/`)**:
+    載入 [server-review.md](./instructions/server-review.md)
+    *   重點：BFF Paths, HATEOAS (`_links`), Payload Optimization.
+
+3.  **UI/Vue 層 (`components/`, `pages/`, `layouts/`)**:
+    載入 [vue-review.md](./instructions/vue-review.md)
+    *   重點：Atomic UI, Component Structure, Single Responsibility.
+
+## 核心審查維度
 
 ### 1. 函數式編程原則
 詳見 [fp-review.md](./instructions/fp-review.md)
-- 純函數檢查
-- 不可變性
-- 函數組合
+- 純函數檢查與不可變性。
 
-### 2. Vue/Nuxt 規範
-詳見 [vue-review.md](./instructions/vue-review.md)
-- 組件結構順序
-- Composable 設計
-- 單一職責
-
-### 3. 分層架構
+### 2. 分層架構與解耦
 詳見 [architecture-review.md](./instructions/architecture-review.md)
-- UI/邏輯/BFF 解耦
-- 依賴注入
-- BFF 路徑命名
+- 依賴注入、UI/邏輯分離。
 
-### 4. 組件與邏輯收斂
+### 3. 組件與邏輯收斂
 詳見 [unification-review.md](./instructions/unification-review.md)
-- UI 原子化檢查
-- 跨流程 UX 一致性
-- 單一真理來源 (SSOT)
+- UI 原子化、SSOT 原則。
 
-### 5. ESLint 規範
+### 4. ESLint 指引
 詳見 [eslint-review.md](./instructions/eslint-review.md)
-- 禁用 any 類型
-- 禁止未使用變數
-- 統一錯誤處理
+- 型別安全、錯誤處理規範。
 
 ## 審查輸出格式
 
 ```
 ## Code Review 結果
+
+### 🎯 審查領域：[例如：Middleware / Server / UI]
 
 ### ✅ 通過
 - [項目說明]
@@ -67,5 +71,6 @@ description: 根據專案編程範式與設計原則進行 Code Review
 ## 參考文檔
 
 - [checklist-summary.md](./references/checklist-summary.md)
-- `.agent/workflows/construction/code-review-checklist.md`
-- `.agent/workflows/construction/programming-paradigms/`
+- `.agent/workflows/construction/nitro/bff-paths.md`
+- `.agent/workflows/construction/nitro/hateoas.md`
+- `.agent/workflows/session-management.md`
