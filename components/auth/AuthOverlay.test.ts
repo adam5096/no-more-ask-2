@@ -43,16 +43,16 @@ describe('AuthOverlay', () => {
     mockUser.value = null
   })
 
-  it('應顯示預設的 Login 標題', () => {
+  it('應顯示預設的 登入 標題', () => {
     const wrapper = mount(AuthOverlay)
-    expect(wrapper.find('.auth-title').text()).toBe('User Login')
+    expect(wrapper.find('.auth-title').text()).toBe('登入')
   })
 
-  it('點擊 Register 切換按鈕時應切換模式與標題', async () => {
+  it('點擊 註冊 切換按鈕時應切換模式與標題', async () => {
     const wrapper = mount(AuthOverlay)
-    const registerBtn = wrapper.findAll('.switch-btn').find(b => b.text() === 'Register')
+    const registerBtn = wrapper.findAll('.switch-btn').find(b => b.text().includes('註冊'))
     await registerBtn?.trigger('click')
-    expect(wrapper.find('.auth-title').text()).toBe('User Registration')
+    expect(wrapper.find('.auth-title').text()).toBe('註冊')
   })
 
   it('登入成功時應顯示成功畫面並關閉', async () => {

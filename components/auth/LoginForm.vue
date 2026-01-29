@@ -4,39 +4,40 @@
     <div v-if="externalErrors?.message" class="general-error">
       {{ externalErrors.message[0] }}
     </div>
+    
     <div class="form-grid">
       <!-- Email 欄位 -->
-      <div class="form-field">
-        <label class="form-label">Email</label>
-        <input
-          v-model="formData.email"
-          type="email"
-          placeholder="user@example.com"
-          class="form-input email-input"
-          :class="{ 'input-error': errors.email?.length }"
-          :disabled="isLoading"
-          @blur="validateField('email')"
-        />
-        <div v-if="errors.email?.length" class="error-message">
-          {{ errors.email[0] }}
-        </div>
-      </div>
+      <AuthInput
+        v-model="formData.email"
+        id="email"
+        label="Email"
+        type="email"
+        placeholder="user@example.com"
+        input-class="email-input"
+        :disabled="isLoading"
+        :errors="errors.email"
+        @blur="validateField('email')"
+      />
 
       <!-- Password 欄位 -->
-      <div class="form-field">
-        <label class="form-label">Password</label>
-        <input
-          v-model="formData.password"
-          type="password"
-          class="form-input password-input"
-          :class="{ 'input-error': errors.password?.length }"
-          :disabled="isLoading"
-          @blur="validateField('password')"
-        />
-        <div v-if="errors.password?.length" class="error-message">
-          {{ errors.password[0] }}
-        </div>
-      </div>
+      <AuthInput
+        v-model="formData.password"
+        id="password"
+        label="Password"
+        type="password"
+        input-class="password-input"
+        :disabled="isLoading"
+        :errors="errors.password"
+        @blur="validateField('password')"
+      >
+        <template #footer>
+          <!-- 密碼提醒 (Login 時作為提示) -->
+          <div class="password-criteria-cloud login-hint">
+            <span class="hint-label">忘記組合？註冊時要求的規則：</span>
+            <PasswordCriteriaCloud :criteria-state="passwordCriteria" />
+          </div>
+        </template>
+      </AuthInput>
     </div>
 
     <div class="form-footer">
@@ -53,6 +54,10 @@
 </template>
 
 <script setup lang="ts">
+import { usePasswordStrength, criteriaLabels } from '~/composables/usePasswordStrength'
+import AuthInput from './AuthInput.vue'
+import PasswordCriteriaCloud from './PasswordCriteriaCloud.vue'
+
 // 型別定義
 interface LoginDTO {
   email: string
@@ -81,6 +86,9 @@ const formData = ref<LoginDTO>({
 })
 
 const errors = ref<FieldErrors>({})
+
+// 密碼即時驗證邏輯 (用於提示用戶記得註冊時的複雜度要求)
+const { criteria: passwordCriteria } = usePasswordStrength(computed(() => formData.value.password))
 
 // 監聽外部錯誤（例如 API 回傳的錯誤）
 watch(() => props.externalErrors, (newErrors) => {
@@ -156,16 +164,12 @@ const handleSubmit = () => {
   font-size: clamp(0.9rem, 1vw + 0.8rem, 1.1rem);
 }
 
-.input-error {
-  @apply border-red-500;
-}
-
-.error-message {
-  @apply text-red-500 text-sm font-medium mt-1;
-}
-
 .general-error {
   @apply bg-red-50 border-2 border-red-500 p-3 text-red-600 font-bold text-sm;
+}
+
+.hint-label {
+  @apply text-xs font-bold text-gray-500 uppercase tracking-tighter;
 }
 
 .form-footer {

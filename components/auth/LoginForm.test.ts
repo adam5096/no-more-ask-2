@@ -14,6 +14,33 @@ describe('LoginForm', () => {
     expect(wrapper.find('.password-input').exists()).toBe(true)
   })
 
+  it('應顯示密碼組成規則提醒', () => {
+    const wrapper = mount(LoginForm, {
+      props: {
+        isLoading: false
+      }
+    })
+    
+    expect(wrapper.find('.login-hint').exists()).toBe(true)
+    expect(wrapper.findAll('.criteria-pill').length).toBe(4)
+  })
+
+  it('登入時輸入密碼應同步觸發提醒標籤的有效狀態', async () => {
+    const wrapper = mount(LoginForm, {
+      props: {
+        isLoading: false
+      }
+    })
+    
+    await wrapper.find('.password-input').setValue('Password123!')
+    await wrapper.vm.$nextTick()
+    
+    const pills = wrapper.findAll('.criteria-pill')
+    pills.forEach(pill => {
+      expect(pill.classes()).toContain('is-valid')
+    })
+  })
+
   it('失焦時應進行欄位驗證', async () => {
     const wrapper = mount(LoginForm, {
       props: {

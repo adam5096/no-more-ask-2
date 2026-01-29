@@ -49,6 +49,7 @@ description: 根據 Conventional Commits 規範生成 Git commit message
 
 - 使用**祈使句**（如：add, fix, update）
 - 開頭不大寫
+- 避免出現檔案路徑
 - 結尾不加句號
 - 使用台灣繁體中文
 - 提供剪貼簿，讓我一鍵複製你生成的 message

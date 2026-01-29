@@ -76,7 +76,6 @@ describe('RegisterForm', () => {
     
     await wrapper.find('form').trigger('submit')
     await wrapper.vm.$nextTick()
-    await new Promise(resolve => setTimeout(resolve, 50))
     
     const generalError = wrapper.find('.general-error')
     expect(generalError.exists()).toBe(true)

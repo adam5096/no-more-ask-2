@@ -4,96 +4,69 @@
     <div v-if="externalErrors?.message || errors.message" class="general-error">
       {{ (externalErrors?.message || errors.message)?.[0] }}
     </div>
+    
     <div class="form-grid">
       <!-- Email 欄位 -->
-      <div class="form-field">
-        <label class="form-label">Email</label>
-        <input
-          v-model="formData.email"
-          type="email"
-          placeholder="user@example.com"
-          class="form-input email-input"
-          :class="{ 'input-error': errors.email?.length }"
-          :disabled="isLoading"
-          @blur="validateField('email')"
-        />
-        <div v-if="errors.email?.length" class="error-message">
-          {{ errors.email[0] }}
-        </div>
-      </div>
+      <AuthInput
+        v-model="formData.email"
+        id="email"
+        label="Email"
+        type="email"
+        placeholder="user@example.com"
+        input-class="email-input"
+        :disabled="isLoading"
+        :errors="errors.email"
+        @blur="validateField('email')"
+      />
 
       <!-- Password 欄位 -->
-      <div class="form-field">
-        <label class="form-label">Password</label>
-        <input
-          v-model="formData.password"
-          type="password"
-          class="form-input password-input"
-          :class="{ 'input-error': errors.password?.length }"
-          :disabled="isLoading"
-        />
-        
-        <!-- 密碼強度標籤雲 (Real-time) -->
-        <div class="password-criteria-cloud">
-          <div 
-            v-for="(isValid, key) in passwordCriteria" 
-            :key="key"
-            class="criteria-pill"
-            :class="{ 'is-valid': isValid }"
-          >
-            {{ criteriaLabels[key] }}
-          </div>
-        </div>
-      </div>
-
-      <!-- First Name 和 Last Name 欄位 -->
+      <AuthInput
+        v-model="formData.password"
+        id="password"
+        label="Password"
+        type="password"
+        input-class="password-input"
+        :disabled="isLoading"
+        :errors="errors.password"
+      >
+        <template #footer>
+          <PasswordCriteriaCloud :criteria-state="passwordCriteria" />
+        </template>
+      </AuthInput>
 
       <div class="name-row">
-        <div class="form-field flex-grow">
-          <label class="form-label">First Name</label>
-          <input
-            v-model="formData.firstName"
-            type="text"
-            class="form-input firstname-input"
-            :class="{ 'input-error': errors.firstName?.length }"
-            :disabled="isLoading"
-            @blur="validateField('firstName')"
-          />
-          <div v-if="errors.firstName?.length" class="error-message">
-            {{ errors.firstName[0] }}
-          </div>
-        </div>
-        <div class="form-field flex-grow">
-          <label class="form-label">Last Name</label>
-          <input
-            v-model="formData.lastName"
-            type="text"
-            class="form-input lastname-input"
-            :class="{ 'input-error': errors.lastName?.length }"
-            :disabled="isLoading"
-            @blur="validateField('lastName')"
-          />
-          <div v-if="errors.lastName?.length" class="error-message">
-            {{ errors.lastName[0] }}
-          </div>
-        </div>
+        <AuthInput
+          v-model="formData.firstName"
+          id="firstName"
+          label="First Name"
+          input-class="firstname-input"
+          class="flex-grow"
+          :disabled="isLoading"
+          :errors="errors.firstName"
+          @blur="validateField('firstName')"
+        />
+        <AuthInput
+          v-model="formData.lastName"
+          id="lastName"
+          label="Last Name"
+          input-class="lastname-input"
+          class="flex-grow"
+          :disabled="isLoading"
+          :errors="errors.lastName"
+          @blur="validateField('lastName')"
+        />
       </div>
 
       <!-- Display Name 欄位 -->
-      <div class="form-field">
-        <label class="form-label">Display Name</label>
-        <input
-          v-model="formData.displayName"
-          type="text"
-          class="form-input displayname-input"
-          :class="{ 'input-error': errors.displayName?.length }"
-          :disabled="isLoading"
-          @blur="validateField('displayName')"
-        />
-        <div v-if="errors.displayName?.length" class="error-message">
-          {{ errors.displayName[0] }}
-        </div>
-      </div>
+      <AuthInput
+        v-model="formData.displayName"
+        id="displayName"
+        label="Display Name"
+        input-class="displayname-input"
+        :disabled="isLoading"
+        :errors="errors.displayName"
+        @blur="validateField('displayName')"
+      />
     </div>
 
     <div class="form-footer">
@@ -110,6 +83,10 @@
 </template>
 
 <script setup lang="ts">
+import { usePasswordStrength, criteriaLabels, type PasswordCriteria } from '~/composables/usePasswordStrength'
+import AuthInput from './AuthInput.vue'
+import PasswordCriteriaCloud from './PasswordCriteriaCloud.vue'
+
 // 型別定義
 interface RegisterDTO {
   email: string
@@ -149,26 +126,9 @@ const formData = ref<RegisterDTO>({
 const errors = ref<FieldErrors>({})
 
 // 密碼即時驗證邏輯
-const criteriaLabels: Record<string, string> = {
-  length: '長度 ≥ 6',
-  special: '含特殊字元',
-  upper: '含大寫字母',
-  lower: '含小寫字母'
-}
+const { criteria: passwordCriteria, isValid: isPasswordValid } = usePasswordStrength(computed(() => formData.value.password))
 
-const passwordCriteria = computed(() => {
-  const pwd = formData.value.password
-  return {
-    length: pwd.length >= 6,
-    special: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pwd),
-    upper: /[A-Z]/.test(pwd),
-    lower: /[a-z]/.test(pwd)
-  }
-})
-
-const isPasswordValid = computed(() => {
-  return Object.values(passwordCriteria.value).every(v => v)
-})
+// 監聽外部錯誤
 
 // 監聽外部錯誤
 watch(() => props.externalErrors, (newErrors) => {
@@ -265,24 +225,6 @@ const handleSubmit = () => {
 
 .error-message {
   @apply text-red-500 text-sm font-medium mt-1;
-}
-
-/* 密碼標籤雲樣式 */
-.password-criteria-cloud {
-  @apply flex flex-wrap gap-2 mt-3;
-}
-
-.criteria-pill {
-  @apply px-3 py-1 text-xs font-black uppercase tracking-wider;
-  @apply border-2 border-gray-900 bg-white text-gray-400;
-  @apply transition-all duration-300 ease-in-out;
-  @apply rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)];
-}
-
-.criteria-pill.is-valid {
-  @apply bg-green-400 text-gray-900 border-gray-900;
-  @apply rounded-full shadow-[2px_2px_0px_0px_rgba(0,0,0,1)];
-  @apply translate-x-[1px] translate-y-[1px] shadow-none;
 }
 
 .general-error {
