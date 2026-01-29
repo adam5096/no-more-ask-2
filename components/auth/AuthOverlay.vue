@@ -173,7 +173,7 @@ const handleClose = () => {
 }
 
 .close-btn {
-  @apply text-2xl font-bold hover:scale-110 active:scale-90 transition-transform;
+  @apply text-2xl font-bold transition-transform;
 }
 
 .auth-content {
@@ -214,7 +214,7 @@ const handleClose = () => {
 
 .success-btn {
   @apply bg-gray-900 text-white font-bold px-10 py-3 uppercase tracking-wider;
-  @apply transition-all duration-200 hover:bg-gray-800 active:scale-95;
+  @apply transition-all duration-200 hover:bg-gray-800;
   @apply border-2 border-gray-900;
 }
 </style>

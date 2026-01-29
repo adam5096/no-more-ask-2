@@ -119,7 +119,7 @@
   @apply cursor-pointer;
   @apply p-2;
   @apply border border-gray-400 rounded;
-  @apply hover:bg-gray-200 active:scale-95;
+  @apply hover:bg-gray-200;
   transition: all 0.15s ease;
 }
 
@@ -179,7 +179,7 @@
   @apply px-4 py-3;
   @apply border border-gray-300 rounded;
   @apply text-center;
-  @apply hover:bg-gray-100 active:scale-95;
+  @apply hover:bg-gray-100;
   transition: all 0.15s ease;
 }
 

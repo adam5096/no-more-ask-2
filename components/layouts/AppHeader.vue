@@ -80,7 +80,7 @@ const handleLogout = async () => {
 .logout-btn {
   @apply border-2 border-gray-900 px-4 py-1 font-bold rounded-none;
   @apply transition-all duration-200;
-  @apply hover:rounded-lg active:scale-95;
+  @apply hover:rounded-full active:scale-85;
 }
 
 .logout-btn:disabled {

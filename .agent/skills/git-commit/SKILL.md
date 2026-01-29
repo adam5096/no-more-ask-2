@@ -51,6 +51,7 @@ description: 根據 Conventional Commits 規範生成 Git commit message
 - 開頭不大寫
 - 結尾不加句號
 - 使用台灣繁體中文
+- 提供剪貼簿，讓我一鍵複製你生成的 message
 
 ## 範例
 

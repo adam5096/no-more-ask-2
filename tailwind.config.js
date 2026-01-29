@@ -14,7 +14,11 @@ export default {
       'lg': '800px',
       'xl': '1400px',
     },
-    extend: {},
+    extend: {
+      scale: {
+        '85': '0.85',
+      }
+    },
   },
   plugins: [],
 }
