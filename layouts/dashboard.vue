@@ -120,7 +120,6 @@
   @apply p-2;
   @apply border border-gray-400 rounded;
   @apply hover:bg-gray-200;
-  transition: all 0.15s ease;
 }
 
 .nav-toggle-icon {
@@ -179,7 +178,7 @@
   @apply px-4 py-3;
   @apply border border-gray-300 rounded;
   @apply text-center;
-  @apply hover:bg-gray-100;
+  @apply hover:bg-gray-300;
   transition: all 0.15s ease;
 }
 

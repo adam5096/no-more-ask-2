@@ -4,6 +4,7 @@
 
 @layer base {
   button {
-    @apply transition-all duration-200 hover:rounded-full active:scale-85;
+    @apply rounded-none hover:rounded-full;
+    @apply active:scale-85;
   }
 }
