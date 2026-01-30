@@ -53,6 +53,9 @@ description: 根據 Conventional Commits 規範生成 Git commit message
 - 結尾不加句號
 - 使用台灣繁體中文
 - 提供剪貼簿，讓我一鍵複製你生成的 message
+- 多段 git 指令之間使用分號 ";" 做區隔
+- 避免使用 "`n" 換行符號，因為 powershell 不認識
+- 如需要換行紀錄，請使用 "-m" 新開另一段 message
 
 ## 範例
 
