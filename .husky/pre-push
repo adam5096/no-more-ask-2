@@ -1,0 +1,5 @@
+# 禁止在 Working Tree 髒亂時 Push (地端有未提交變動)
+if [ -n "$(git status --porcelain)" ]; then
+  echo "❌ Error: 地端有未提交的變動 (Dirty Working Tree)。請先 Commit 或 Stash，確保推送到遠端的內容是乾淨的。"
+  exit 1
+fi
