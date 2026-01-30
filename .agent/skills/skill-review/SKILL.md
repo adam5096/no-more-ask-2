@@ -7,13 +7,18 @@ description: 驗收既有與未來新增的 skill 是否遵循「中立性」、
 
 本技能用於審核 `.agent/skills/` 目錄下的技能品質，確保其具備高度的可複用性與明確的職責分工。
 
+## 參考範本
+
+*   [官方 Skill Creator 範本](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md)
+*   [Antigravity Skill 官方文件](https://antigravity.google/docs/skills?hl=zh-tw)
+
 ## 審核原則
 
 在進行 Skill Review 時，必須檢查以下維度：
 
 ### 1. 說明清晰度 (Description Clarity)
-*   `description` 欄位是否簡潔且精確地描述了該技能的功能？
-*   使用者是否能一眼看出該技能的用途？
+*   `description` 欄位是否足夠完整且足夠精確地描述了該技能的功能？
+*   使用者是否能一眼看出該技能的用途？且不會與其他技能重疊、衝突？
 
 ### 2. 職責中立化 (Neutrality)
 *   **跨專案複用**：技能是否紀錄了可以跨專案使用的邏輯？
