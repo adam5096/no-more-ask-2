@@ -23,12 +23,44 @@ description: 負責通用 UI/UX 佈局開版、Responsive Web Design (RWD) 與 T
 *   將高度結構相關的樣式抽離至 `<style scoped>` 中，使用 `@apply` 或自定義類名以優化 `<template>` 可讀性。
 *   避免類名與 Tailwind 預設 Utility 重疊。
 
-### 3. 可互動元素與回饋 (Interactive Feedback)
+### 3. @apply 響應式限制與分層原則
+
+> [!CAUTION]
+> **Tailwind 限制**：`@apply` 不支援響應式前綴（如 `lg:grid-cols-2`）。這是 Tailwind 本身的設計限制。
+
+**解決方案：分層原則 (Layered Pattern)**
+
+| 層級 | 放置位置 | 範例 |
+|------|----------|------|
+| 結構性樣式 | `<style scoped>` + `@apply` | `grid`, `flex`, `gap`, `position` |
+| 響應式修飾 | `<template>` class | `lg:grid-cols-2`, `xl:text-xl` |
+
+```vue
+<!-- ✅ 正確寫法 -->
+<template>
+  <div class="my-grid lg:grid-cols-2 xl:grid-cols-3">...</div>
+</template>
+<style scoped>
+.my-grid { @apply grid gap-4 grid-cols-1; }
+</style>
+```
+
+```vue
+<!-- ❌ 錯誤寫法：@apply 內使用響應式前綴會報錯 -->
+<style scoped>
+.my-grid { @apply grid gap-4 lg:grid-cols-2; } /* PostCSS Error */
+</style>
+```
+
+**優點**：可直接使用 `tailwind.config.js` 中定義的語義化 breakpoint 名稱 (`sm`, `lg`, `xl`)，無需記憶 magic number。
+
+### 4. 可互動元素與回饋 (Interactive Feedback)
 *   所有按鈕與連結必須包含 `hover` 與 `active` 視覺回饋。
 *   優先使用 `scale` 或 `border-radius` 變化，避免破壞佈局。
 
-### 4. 語意化 HTML (Semantic HTML)
+### 5. 語意化 HTML (Semantic HTML)
 *   優先使用 `<header>`, `<main>`, `<section>`, `<nav>` 等官方推薦標籤。
+
 
 ## 審核與接力
 
