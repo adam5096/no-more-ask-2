@@ -58,6 +58,23 @@ description: 接到一開發需求後的標準開發流程 (DDD -> SDD -> TDD ->
 
 ---
 
+## Step 5. Verification（驗證階段）
+**目標：確保實作品質符合專案標準，此步驟為強制執行。**
+
+### 5.1 Code Review
+*   **執行 `code-review` skill**：進行架構與品質審查。
+*   **審查範圍**：函數式編程原則、解耦架構、命名規範。
+
+### 5.2 Test Execution
+*   **執行 `gen-test-case` workflow**：生成測試案例並執行。
+*   **驗收標準**：Core Logic 覆蓋率 100%，E2E 測試視情況決定。
+
+### 5.3 Progress Update
+*   **更新 `doc/progress/prd-progress.md`**：標註完成項目。
+*   **計算進度**：重新計算 Feature/Phase/Total 進度百分比。
+
+---
+
 ## 執行指南 (Checklist for Agent)
 
 1.  **不跳步**：即使是微小需求，也必須快速掃過 Step 1-2，確保不破壞既有架構。
@@ -66,3 +83,6 @@ description: 接到一開發需求後的標準開發流程 (DDD -> SDD -> TDD ->
     *   參考 `/01-functional-programming` 進行邏輯實作。
     *   參考 `/code-review-checklist` 進行自我審查。
 4.  **動態詢問**：在 Step 1 & Step 3.2 遇到不確定性時，主動尋求開發人員指導。
+5.  **強制驗證**：**任何 Task 完成後，必須執行 Step 5 (Verification)**，不可跳過。
+6.  **進度同步**：每次 Verification 通過後，更新 `prd-progress.md`。
+
