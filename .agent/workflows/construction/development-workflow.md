@@ -17,7 +17,34 @@ description: 接到一開發需求後的標準開發流程 (DDD -> SDD -> TDD ->
 *   **未知排查**：若存在模糊不清的領域邊界，請務必先詢問開發人員確認。
 
 ### 1.2 OOUX 對齊
-*   參考 `/information-architecture` 與 `/functional-decomposition`，確認需求涉及的 **Objects**、**Relationships** 與 **CTAs** 是否已有預定義。
+
+**參考資源**：
+- `/orca` — ORCA 框架總覽 (Objects, Relationships, CTAs, Attributes)
+- `/ux-basic-steps` — UX 基礎步驟系列
+
+**ORCA 四步驟**：
+
+| Round | 目標 | 輸出 |
+|-------|------|------|
+| 1. Discover | 訪談蒐集原始材料 | 藍/綠/紅/黃便利貼 |
+| 2. Requirements | 高解析度需求定義 | Object Matrix |
+| 3. Prioritization | 策略性迭代排序 | MVP 範圍 |
+| 4. Representation | 設計直覺化介面 | Sketch → Prototype → Test |
+
+**使用流程**：
+
+1. **新需求/Greenfield**：
+   - 先執行 `/1-discovery-interview` 進行訪談
+   - 再執行 `/2-orca-object-modeling` 建立物件模型
+   - 最後執行 `/3-documentation-standard` 產出設計文件
+
+2. **既有需求/Brownfield**：
+   - 參考 `/5-greenfield-vs-brownfield-strategy` 選擇適合策略
+   - 盤點現有 Objects 並對齊新需求
+
+3. **對齊檢查**：
+   - 確認需求涉及的 **Objects**、**Relationships**、**CTAs** 是否已有預定義
+   - 若無，需先建立 ORCA 模型再進入 SDD 階段
 
 ---
 

@@ -31,20 +31,6 @@ description: 在進入 ORCA 建模前，透過高效訪談蒐集「原始材料�
 ---
 
 
-
-
-
-
-
----
-
-## 💡 給前端專業的你的建議
-
-作為 Nuxt 3 與 Tailwind 的使用者，這套 Workflows 能幫你做到：
-
-1. **Tailwind 預熱：** 在 Attribute 階段就能定好 `Design Tokens`。
-2. **Nuxt Directory 規劃：** Objects 直接對應 `components/` 的資料夾結構，CTAs 對應 `server/api/` 的路由。
-
 ---
 
 ## 下一步 (Next Step)
