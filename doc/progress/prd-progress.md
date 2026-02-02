@@ -24,7 +24,7 @@ last_updated: 2026-02-02
 | Feature | 權重 | 進度 | 狀態 | 使用 Skill |
 |---------|------|------|------|------------|
 | 認證系統 | 10% | 100% | ✅ Done | layout, api |
-| Dashboard | 10% | 80% | 🔄 80% | layout, orca-modeling |
+| Dashboard | 10% | 100% | ✅ Done | layout, orca-modeling |
 | 救援功能 (B1) | 10% | 0% | ⏳ | — |
 | Helper 功能 (B4) | 5% | 0% | ⏳ | — |
 | 通知系統 (B7) | 5% | 0% | ⏳ | — |
@@ -33,8 +33,8 @@ last_updated: 2026-02-02
 - [x] Contract Layer (types, mock API, composable) <!-- weight: 30 -->
 - [x] UI Components (ProfileCard, RescueSummary, NotificationPreview) <!-- weight: 30 -->
 - [x] Page Integration <!-- weight: 20 -->
-- [ ] Code Review <!-- weight: 10 -->
-- [ ] Test <!-- weight: 10 -->
+- [x] Code Review <!-- weight: 10 -->
+- [x] Test <!-- weight: 10 -->
 
 ---
 

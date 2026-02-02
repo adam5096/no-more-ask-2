@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RescueRequestPreview, UserRole } from '~/types/dashboard'
+import { formatRelativeTime } from '~/utils/formatTime'
 
 // Props: 接收 RescueRequest Objects & User Role for RBAA
 defineProps<{
@@ -29,17 +30,7 @@ const stressLevelEmoji = (level: number) => {
   return emojis[Math.min(level - 1, 4)]
 }
 
-// 格式化時間
-const formatTime = (isoDate: string) => {
-  const date = new Date(isoDate)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMins = Math.floor(diffMs / 60000)
-  
-  if (diffMins < 60) return `${diffMins} 分鐘前`
-  if (diffMins < 1440) return `${Math.floor(diffMins / 60)} 小時前`
-  return `${Math.floor(diffMins / 1440)} 天前`
-}
+
 </script>
 
 <template>
@@ -86,7 +77,7 @@ const formatTime = (isoDate: string) => {
           <span class="stress-level">{{ stressLevelEmoji(request.stressLevel) }}</span>
           <div class="request-info">
             <span class="request-type">{{ request.type === 'emergency' ? '緊急救援' : '預約救援' }}</span>
-            <span class="request-time">{{ formatTime(request.createdAt) }}</span>
+            <span class="request-time">{{ formatRelativeTime(request.createdAt) }}</span>
           </div>
         </div>
         <div class="request-meta">

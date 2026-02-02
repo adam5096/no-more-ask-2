@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NotificationPreview } from '~/types/dashboard'
+import { formatRelativeTime } from '~/utils/formatTime'
 
 // Props
 defineProps<{
@@ -22,17 +23,7 @@ const typeIcons: Record<string, string> = {
   helper_request: '🦸'
 }
 
-// 格式化時間
-const formatTime = (isoDate: string) => {
-  const date = new Date(isoDate)
-  const now = new Date()
-  const diffMs = now.getTime() - date.getTime()
-  const diffMins = Math.floor(diffMs / 60000)
-  
-  if (diffMins < 60) return `${diffMins} 分鐘前`
-  if (diffMins < 1440) return `${Math.floor(diffMins / 60)} 小時前`
-  return `${Math.floor(diffMins / 1440)} 天前`
-}
+
 </script>
 
 <template>
@@ -74,7 +65,7 @@ const formatTime = (isoDate: string) => {
         <span class="notification-icon">{{ typeIcons[notification.type] || '📬' }}</span>
         <div class="notification-content">
           <p class="notification-title">{{ notification.title }}</p>
-          <span class="notification-time">{{ formatTime(notification.createdAt) }}</span>
+          <span class="notification-time">{{ formatRelativeTime(notification.createdAt) }}</span>
         </div>
         <span v-if="!notification.isRead" class="unread-dot" />
       </li>

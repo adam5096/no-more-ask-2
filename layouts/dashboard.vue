@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // Dashboard Layout - Wireframe 階段
 // 遵循 opening-layout.md 開版規範
 </script>
