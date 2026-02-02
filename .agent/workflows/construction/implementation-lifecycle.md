@@ -128,6 +128,10 @@ AI 行為：使用 notify_user 通知開發人員審核結果
 - 審核通過後，更新 `prd-progress.md` 對應 Task 為 Done
 - 重新計算 Feature/Phase/Total 進度百分比
 
+### 3.4 更新分析統計 (Usage Analytics)
+- 根據本次開發中使用的 Skill 與 Workflow，使用 `usage-analytics` skill 更新 `doc/analytics/usage-stats.md`
+- 記錄對工具的優化建議或棄用評估
+
 ---
 
 ## Step 4. 接續下一個 Plan (Continuation)
