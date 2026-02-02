@@ -7,7 +7,6 @@ definePageMeta({
 // Data Layer: 使用 Dashboard Composable
 const {
   user,
-  rescueRequests,
   notifications,
   isLoading,
   refresh
@@ -24,14 +23,7 @@ const handleEditProfile = () => {
   console.log('Edit profile clicked')
 }
 
-const handleCreateRequest = () => {
-  // TODO: Navigate to create rescue request
-  navigateTo('/rescue-request/create')
-}
 
-const handleViewRequest = (id: string) => {
-  navigateTo(`/rescue-request/${id}`)
-}
 
 const handleViewAllNotifications = () => {
   navigateTo('/notifications')
@@ -54,14 +46,7 @@ const handleMarkAsRead = (id: string) => {
         @edit-profile="handleEditProfile"
       />
 
-      <!-- Rescue Summary -->
-      <DashboardRescueSummary
-        :requests="rescueRequests"
-        :user-role="user?.role ?? null"
-        :is-loading="isLoading"
-        @create-request="handleCreateRequest"
-        @view-request="handleViewRequest"
-      />
+
 
       <!-- Notification Preview -->
       <DashboardNotificationPreview

@@ -1,38 +1,8 @@
-// B6 實況地圖 ORCA 物件模型 (v1)
-// 依據 ORCA Discovery 訪談結果定義
+// B6 情緒地景 ORCA 物件模型 (v1)
+// 專注於情緒視覺化、標籤雲與個人演化機制
 
 // ============================================
-// 擴展現有物件
-// ============================================
-
-import type { RescueRequestPreview, HelperMinimal } from './dashboard'
-
-/**
- * RescueRequest 擴展 - 加入地理位置
- * 繼承 RescueRequestPreview 所有屬性
- */
-export interface RescueRequestLocation extends RescueRequestPreview {
-  /** 地理位置 (WGS84) */
-  location: GeoPoint
-
-  /** 區域 ID (用於熱點聚合) */
-  districtId: string
-}
-
-/**
- * Helper 擴展 - 加入地理位置與隱私設定
- * 繼承 HelperMinimal 所有屬性
- */
-export interface HelperLocation extends HelperMinimal {
-  /** 地理位置 (WGS84) */
-  location?: GeoPoint
-
-  /** 位置是否公開 (預設 true = Opt-out) */
-  isLocationPublic: boolean
-}
-
-// ============================================
-// 新增物件
+// Core Objects
 // ============================================
 
 /**
@@ -44,79 +14,44 @@ export interface GeoPoint {
 }
 
 /**
- * 地圖圖層
- * 
- * ORCA 定義：
- * - Object: Layer
- * - Relationships: hasMany DataPoint (RescueRequest | Helper | Hotspot)
- * - CTAs: toggle, reorder
- * - Attributes: 如下
+ * 情緒分類 (Vibe Type)
  */
-export interface Layer {
+export type VibeType = 'anxious' | 'roast' | 'flex' | 'disturbed'
+
+/**
+ * 情緒標籤 (Vibe Object)
+ */
+export interface Vibe {
   id: string
-  
-  /** 圖層顯示名稱 */
-  name: string
-  
-  /** 圖層類型 */
-  type: LayerType
-  
-  /** 資料來源類型 */
-  dataSource: LayerDataSource
-  
-  /** 可見性 (用戶可 toggle) */
-  visibility: 'visible' | 'hidden'
-  
-  /** 圖層疊加順序 (數字越大越上層) */
-  order: number
-  
-  /** 存取權限 */
-  accessLevel: LayerAccessLevel
-}
-
-export type LayerType = 'public' | 'personal'
-
-export type LayerDataSource = 'rescue_request' | 'helper' | 'hotspot'
-
-export type LayerAccessLevel = 'anonymous' | 'authenticated'
-
-/**
- * 用戶圖層偏好設定 (N:N 中間表)
- * 
- * ORCA 定義：
- * - Relationships: belongsTo User, belongsTo Layer
- */
-export interface UserLayerPreference {
   userId: string
-  layerId: string
+  content: string
+  type: VibeType
   
-  /** 用戶自訂的可見性 */
-  visibility: 'visible' | 'hidden'
+  // 位置資訊
+  location: GeoPoint
   
-  /** 用戶自訂的排序 */
-  customOrder?: number
+  // 顯示資訊
+  isAnonymous: boolean
+  nickname?: string  // 若 isAnonymous 為 true 則不顯示
+  
+  // 生命週期
+  createdAt: string  // ISO 8601
+  lifespan: number   // 壽命長度 (分鐘)，最大 720
+  
+  // 演化狀態 (僅針對個人圖層)
+  evolutionLevel: number // 0: 一般, 1: 堆疊中, 2: 已演化
 }
 
 /**
- * 熱點聚合結果 (非物件，是計算結果)
- * 
- * 來源：BFF 對 RescueRequest 做 GROUP BY district
+ * 地圖圖層 (Layer)
  */
-export interface HotspotAggregate {
-  /** 區域 ID */
-  districtId: string
-  
-  /** 區域名稱 */
-  districtName: string
-  
-  /** 區域中心點 (用於地圖顯示) */
-  center: GeoPoint
-  
-  /** 救援請求數量 */
-  count: number
-  
-  /** 平均壓力等級 */
-  avgStressLevel: number
+export interface MapLayer {
+  id: string
+  name: string
+  type: 'public' | 'personal'
+  dataSource: 'all_vibes' | 'my_vibes' | 'roast_only'
+  visibility: 'visible' | 'hidden'
+  order: number
 }
 
 // ============================================
@@ -124,43 +59,33 @@ export interface HotspotAggregate {
 // ============================================
 
 /**
- * GET /api/map/layers - 取得可用圖層列表
+ * GET /api/vibe/stream - 取得地圖情緒串流
  */
-export interface GetMapLayersResponse {
-  layers: Layer[]
+export interface GetVibeStreamResponse {
+  vibes: Vibe[]
+  activeEvolutions: {
+    userId: string
+    type: VibeType
+    level: number
+    center: GeoPoint
+  }[]
 }
 
 /**
- * GET /api/map/hotspots - 取得熱點聚合資料
- * Query: ?districtIds=xxx,yyy
+ * POST /api/vibe/create - 發布心情標籤
  */
-export interface GetHotspotsResponse {
-  hotspots: HotspotAggregate[]
-  updatedAt: string // ISO 8601
+export interface CreateVibeRequest {
+  content: string
+  type: VibeType
+  location: GeoPoint
+  isAnonymous: boolean
+  lifespan?: number // 30 - 720
 }
 
 /**
- * GET /api/map/rescue-requests - 取得地圖上的救援請求
- * Query: ?bounds=lat1,lng1,lat2,lng2
+ * POST /api/vibe/create - 回應
  */
-export interface GetMapRescueRequestsResponse {
-  requests: RescueRequestLocation[]
-}
-
-/**
- * GET /api/map/helpers - 取得地圖上的 Helper 位置
- * Query: ?bounds=lat1,lng1,lat2,lng2
- * 需認證
- */
-export interface GetMapHelpersResponse {
-  helpers: HelperLocation[]
-}
-
-/**
- * PATCH /api/user/layer-preferences - 更新用戶圖層偏好
- */
-export interface UpdateLayerPreferenceRequest {
-  layerId: string
-  visibility?: 'visible' | 'hidden'
-  customOrder?: number
+export interface CreateVibeResponse {
+  success: boolean
+  vibe: Vibe
 }
