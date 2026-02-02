@@ -5,14 +5,13 @@
 // 擴展現有物件
 // ============================================
 
+import type { RescueRequestPreview, HelperMinimal } from './dashboard'
+
 /**
  * RescueRequest 擴展 - 加入地理位置
- * 原物件位於 types/dashboard.ts
+ * 繼承 RescueRequestPreview 所有屬性
  */
-export interface RescueRequestLocation {
-  /** 原有 RescueRequest 的所有屬性 */
-  // ...extends RescueRequestPreview
-
+export interface RescueRequestLocation extends RescueRequestPreview {
   /** 地理位置 (WGS84) */
   location: GeoPoint
 
@@ -22,12 +21,9 @@ export interface RescueRequestLocation {
 
 /**
  * Helper 擴展 - 加入地理位置與隱私設定
- * 原物件位於 types/dashboard.ts
+ * 繼承 HelperMinimal 所有屬性
  */
-export interface HelperLocation {
-  /** 原有 Helper 的所有屬性 */
-  // ...extends HelperMinimal
-
+export interface HelperLocation extends HelperMinimal {
   /** 地理位置 (WGS84) */
   location?: GeoPoint
 
