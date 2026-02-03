@@ -104,11 +104,11 @@ CSS 樣式檢查確保使用 Design Token、正確使用 Tailwind CSS、遵循�
 
 - [狀態管理決策框架](../../../.cursor/rules/vue-feature-workflow/vue3-state-management.mdc)
 - [Computed vs Watcher 指南](../../../.cursor/rules/vue-feature-workflow/vue3-computed-vs-watcher.mdc)
-- [副作用處理策略](../../programming-paradigms/04-side-effect-strategies.md)
-- [副作用實務處理](../../programming-paradigms/05-side-effect-practices.md)
-- [資料獲取策略](../../data-fetching/useFetch.md)
-- [組織 Composition API 程式碼](../organize-composition-api-code.md)
-- [組件模式指南](../better-component-patterns.md)
+- [副作用處理策略](../../functional-programming/references/04-side-effect-strategies.md)
+- [副作用實務處理](../../functional-programming/references/05-side-effect-practices.md)
+- [資料獲取策略](../../../workflows/construction/data-fetching/useFetch.md)
+- [組織 Composition API 程式碼](../references/composition-api/code-organization.md)
+- [組件模式指南](../references/component-patterns/component-patterns.md)
 
 ### HTML/CSS 相關
 
@@ -119,9 +119,9 @@ CSS 樣式檢查確保使用 Design Token、正確使用 Tailwind CSS、遵循�
 
 ### 編程範式與設計原則
 
-- [編程範式與設計原則](../../programming-paradigms/index.md)
-- [函數式編程](../../programming-paradigms/01-functional-programming.md)
-- [設計原則](../../programming-paradigms/02-design-principles.md)
+- [編程範式與設計原則](../../functional-programming/references/index.md)
+- [函數式編程](../../functional-programming/references/01-functional-programming.md)
+- [設計原則](../../functional-programming/references/02-design-principles.md)
 
 ---
 

@@ -192,16 +192,10 @@
 
 ### 相關文檔
 
-- MVP 決策記錄：`docs/prd/mvp-decisions.md`
+- MVP 決策記錄：[mvp-decisions.md](../../../workflows/prd/method-prototype/mvp-decisions.md)
   - 本原則文檔對齊 MVP 決策原則：「優先選擇施工難度較低的方案」
 
-- 開發理念：`.cursor/rules/dev/dev-philosophy.mdc`
-  - 本原則文檔整合了 KISS 原則與開發理念
-
-- Vue 3 風格指南：`.cursor/rules/fe-JavaScript-style-guide.mdc`
-  - 本原則文檔的函數式編程原則與 Vue 3 Composition API 風格一致
-
-- 技術規格：`docs/construction/technical-specs.md`
+- 產品需求規格：[prd-v1.md](../../../workflows/prd/method-prototype/prd-v1.md)
   - 本原則文檔指導技術規格的實作方式
 
 ---

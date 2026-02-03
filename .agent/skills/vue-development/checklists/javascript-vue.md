@@ -14,10 +14,10 @@
 - [主索引檔案](./index.md)
 - [狀態管理決策框架](../../../.cursor/rules/vue-feature-workflow/vue3-state-management.mdc)
 - [Computed vs Watcher 指南](../../../.cursor/rules/vue-feature-workflow/vue3-computed-vs-watcher.mdc)
-- [副作用處理策略](../../programming-paradigms/04-side-effect-strategies.md)
-- [副作用實務處理](../../programming-paradigms/05-side-effect-practices.md)
-- [資料獲取策略](../../data-fetching/useFetch.md)
-- [組織 Composition API 程式碼](../organize-composition-api-code.md)
+- [副作用處理策略](../../functional-programming/references/04-side-effect-strategies.md)
+- [副作用實務處理](../../functional-programming/references/05-side-effect-practices.md)
+- [資料獲取策略](../../../workflows/construction/data-fetching/useFetch.md)
+- [組織 Composition API 程式碼](../references/composition-api/code-organization.md)
 
 ---
 
@@ -89,8 +89,8 @@
 
 **參考文檔**：
 - [Computed vs Watcher 指南](../../../.cursor/rules/vue-feature-workflow/vue3-computed-vs-watcher.mdc)
-- [副作用處理策略](../../programming-paradigms/04-side-effect-strategies.md)
-- [副作用實務處理](../../programming-paradigms/05-side-effect-practices.md)
+- [副作用處理策略](../../functional-programming/references/04-side-effect-strategies.md)
+- [副作用實務處理](../../functional-programming/references/05-side-effect-practices.md)
 
 ---
 
@@ -108,7 +108,7 @@
   - [ ] **useAsyncData**：複雜邏輯、並行請求、第三方 SDK、需要完全控制快取 Key
   - [ ] **$fetch**：事件觸發的操作（POST/PUT/DELETE）、不需要 SSR 的請求
 
-**參考文檔**：[資料獲取策略](../../data-fetching/useFetch.md)
+**參考文檔**：[資料獲取策略](../../../workflows/construction/data-fetching/useFetch.md)
 
 ---
 
@@ -142,7 +142,7 @@
   - 如果只在當前組件使用，使用 Inline Composable（寫在組件檔案底部）
   - 如果需要在多個組件使用，提取為獨立檔案
 
-**參考文檔**：[組織 Composition API 程式碼](../organize-composition-api-code.md)
+**參考文檔**：[組織 Composition API 程式碼](../references/composition-api/code-organization.md)
 
 ---
 
