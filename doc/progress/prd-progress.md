@@ -27,7 +27,7 @@ last_updated: 2026-02-02
 | Dashboard | 10% | 100% | ✅ Done | layout, orca-modeling |
 | 救援功能 (B1) | 10% | 0% | ⏳ | — |
 | Helper 功能 (B4) | 5% | 0% | ⏳ | — |
-| 通知系統 (B7) | 5% | 0% | ⏳ | — |
+| 站內通知系統 (B7) | 5% | 0% | ⏳ | — |
 
 ### Dashboard Details
 - [x] Contract Layer (types, mock API, composable) <!-- weight: 30 -->
